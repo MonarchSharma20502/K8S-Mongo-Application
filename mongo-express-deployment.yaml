@@ -1,3 +1,5 @@
+# MONGO-EXPRESS DEPLOYMENT
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -35,4 +37,21 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: mongodb-configmap
-              key: database_url 
+              key: database_url
+
+---
+# MONGO-EXPRESS EXTERNAL SERVICE
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express-service
+spec:
+  selector:
+    app: mongo-express
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 8081
+    targetPort: 8081
+    nodePort: 30000
