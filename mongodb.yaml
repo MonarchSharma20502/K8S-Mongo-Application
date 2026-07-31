@@ -1,3 +1,5 @@
+# DEPLOYMENT - MONGODB
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -12,13 +14,13 @@ spec:
   template:
     metadata:
       labels:
-        app: mongodb
+        app: mongodb  # This is referenced by the Internal Service
     spec:
       containers:
       - name: mongodb
         image: mongo
         ports:
-        - containerPort: 27017
+        - containerPort: 27017  # This container port is referenced by the Internal Service in (Target Port)
         env:
         - name: MONGO_INITDB_ROOT_USERNAME
           valueFrom:
@@ -30,3 +32,18 @@ spec:
             secretKeyRef:
               name: mongodb-secret
               key: mongo-root-password
+---
+
+# INTERNAL SERVICE - MONGODB
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb  # This is the label of the pod that it matches to select them
+  ports:
+  - protocol: TCP
+    port: 27017 # This is the port of the Service on which it's exposed (This port can be different from the targetPort)
+    targetPort: 27017 # This target port must match with the containerPort in the deployment to fetch the correct Pods
