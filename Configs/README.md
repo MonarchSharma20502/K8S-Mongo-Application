@@ -1,2 +1,0 @@
-- Created the Ingress Resource for the connecting MONGO-EXPRESS Service and Pod through the Ingress Configuration for inbound requests.
-- The configuration contains the INGRESS resource and the Pod is connected to the internal Service.
