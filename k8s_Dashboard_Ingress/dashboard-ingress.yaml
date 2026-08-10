@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: dashboard-Ingress
+  # This is the same namespace where the Kubernetes Dashboard Service and Pod exist
+  namespace: kubernetes-dashboard
+spec:
+  # Routing rules based on host and path
+  rules:
+  - host: dashboard.com
+  # Based on the host name, the request is forwarded to the specified path (Empty doesn't mean ignore, it means match all paths)
+    http:
+      paths:
+      - backend:
+          # Name of the Service Ingress will forward request to
+          serviceName: kubernetes-dashboard
+          # This is the port on which the service in the same NAMESPACE is listening at.
+          servicePort: 80
