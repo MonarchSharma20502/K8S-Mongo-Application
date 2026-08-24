@@ -43,6 +43,10 @@ spec:
               key: database_url  # Here from the ConfigMap, we reference the Database URL and it's value is the name of the MONGODB Internal Service.
 
         # we can also use the Internal Service's name directly here without the need of Config Map but it is not recommended because if used at multiple places, we would need to make changes in each and every file.
+        
+        # env:
+        #   - name: ME_CONFIG_MONGODB_SERVER
+        #     value: mongodb-service
 
 ---
 # MONGO-EXPRESS EXTERNAL SERVICE
