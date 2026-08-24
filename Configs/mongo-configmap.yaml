@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: mongodb-configmap
 data:
-  database_url: mongodb-service 
+  database_url: mongodb-service # This is the name of the Mongo-DB Internal Service to which the Mongo Express Pods will send requests.
